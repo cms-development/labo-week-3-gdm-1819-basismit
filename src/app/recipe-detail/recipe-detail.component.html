@@ -1,28 +1,59 @@
 <div *ngIf="recipe">
-  <button (click)="goBack()">go back</button>
+  <button class="btn btn-default" (click)="goBack()">go back</button>
   <h2>{{recipe.title.rendered | uppercase}}</h2>
   <h3 *ngIf="recipe.meta_fields._recipe_subtitle">{{recipe.meta_fields._recipe_subtitle}}</h3>
+
   <div class="content" [innerHTML]="recipe.content.rendered"></div>
-  <div *ngIf="recipe.meta_fields._recipe_ingredients">
-      <h3 >Ingredients</h3>
-      <div [innerHTML]="recipe.meta_fields._recipe_ingredients"></div>
-  </div>
-  <div *ngIf="recipe.acf.extra_tips">
-      <h3 >Extra Tips</h3>
-      <div [innerHTML]="recipe.acf.extra_tips"></div>
-  </div>
-  <h3>Alcohol:
-  <span *ngIf="recipe.acf.alcohol !== ''">ja</span>
-  <span *ngIf="recipe.acf.alcohol == ''">nee</span>
-  </h3>
-<div class="images">
-  <img *ngIf="recipe.acf.image_1.url" [src]="recipe.acf.image_1.url" [alt]="recipe.acf.image_1.alt">
-  <img *ngIf="recipe.acf.image_2.url" [src]="recipe.acf.image_2.url" [alt]="recipe.acf.image_2.alt">
+
+
+  <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Ingredients</h3>
+      </div>
+      <div class="panel-body" [innerHTML]="recipe.meta_fields._recipe_ingredients">
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Extra Tips</h3>
+      </div>
+      <div class="panel-body" [innerHTML]="recipe.acf.extra_tips">
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3>Alcohol:
+          <span *ngIf="recipe.acf.alcohol !== ''">ja</span>
+          <span *ngIf="recipe.acf.alcohol == ''">nee</span>
+        </h3>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <img *ngIf="recipe.acf.image_1.url" [src]="recipe.acf.image_1.url" [alt]="recipe.acf.image_1.alt">
+        <img *ngIf="recipe.acf.image_2.url" [src]="recipe.acf.image_2.url" [alt]="recipe.acf.image_2.alt">
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Taxonomies</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+          <li *ngFor="let term of this.recipe['_embedded']['wp:term']">{{term[0].name}}</li>
+        </ul>
+      </div>
+    </div>
 </div>
-<h3>Taxonomies</h3>
-<ul>
-<li *ngFor="let term of this.recipe['_embedded']['wp:term']">{{term[0].name}}</li>
-</ul>
-<h3></h3>
-</div>
+
+
+
+<!-- <div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 *ngIf="recipe.meta_fields._recipe_subtitle">{{recipe.meta_fields._recipe_subtitle}}</h3>
+  </div>
+  <div class="panel-body" [innerHTML]=[innerHTML]="recipe.content.rendered">
+  </div>
+</div> -->
+
 
